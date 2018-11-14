@@ -37,3 +37,5 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on pull requests.
 ## Notes
 Because React comes with a Serverice Worker built into the package, I simply "registered" the service worker in the index.js according to the instructions.
 
+Offline functionality of the app is only available in Production Mode. This caches the app boilerplate using the service worker provided with Create React App. The API data and map data are only shown when there is a network connection, to avoid any terms of service. 
+

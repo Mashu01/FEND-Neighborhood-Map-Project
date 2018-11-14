@@ -4,6 +4,7 @@ import List from './List';
 import * as LocationsAPI from '../api/Locations';
 
 
+
 class Content extends React.Component {
 	state = {
 		locations: [],
@@ -12,10 +13,13 @@ class Content extends React.Component {
 	};
 	
 	componentDidMount() {		
-	 	LocationsAPI.getLocations()
+	 	try { LocationsAPI.getLocations()
 			 .then((resp) => {
 			 this.setState({ locations: resp, allLocations: resp })
-		});
+		}); 
+		} catch (error) {
+      		alert("Error loading page...")
+    	}
  	}
  	
  	handleClick = (location) => {
@@ -38,19 +42,21 @@ class Content extends React.Component {
 				</div>`;
 	};
 
-	handleTextChange = query => {
+	handleTextChange = (query) => {	
+		
 		this.setState({ query });
 		if (query) {
 			this.setState({ 
 				locations: this.filterLocations(query, this.state.locations)
 			})
-		} else {
-			this.setState({ locations: this.state.allLocations })
+		} else  {
+			this.setState({ locations: this.state.allLocations}) 	
 		}
 	};
 
 	filterLocations = (query, locations) => {
 		return locations.filter(location => location.venue.name.toLowerCase().includes(query.toLowerCase()));
+
 	}
 
 	render () {
